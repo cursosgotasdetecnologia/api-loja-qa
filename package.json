@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/cursosgotasdetecnologia/api-loja-qa#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.65.1",
-    "@types/node": "^26.6.6"
+    "@types/node": "^26.6.6",
+    "eslint": "^10.15.0",
+    "typescript-eslint": "^8.74.0"
   }
 }
