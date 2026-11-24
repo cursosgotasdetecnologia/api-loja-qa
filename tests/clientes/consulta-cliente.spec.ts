@@ -7,15 +7,16 @@ test.describe('Consulta de clientes por identificador', () => {
 
   test('Consultar cliente existente', async ({ request }) => {
 
-    //const clienteId = 1;
-    //const nomeEsperado = 'Ana Paula Martins';
-    //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsb2phLXFhLWFwaSIsImF1ZCI6ImxvamEtcWEtcHJhdGljYSIsInN1YiI6InByYXRpY2EiLCJpYXQiOjE3OTU0NjEwMTgsImV4cCI6MTc5NTQ4OTgxOCwianRpIjoiMDRmZDA1MzctYTAxYy00NDg3LWEwNmMtZjg1OTNjODFlZDgwIn0.NFmJhIey_nZBeNW76HKq_Hvg6WxAG4MgAAcG0ctCW-0';
+     const tokenResponse = await request.post('/api/v1/token');
 
-    const token = process.env.API_TOKEN;
+    expect(tokenResponse.ok()).toBe(true);
 
-    if (!token) {
-      throw new Error('Preencha API_TOKEN no arquivo .env.');
-    }
+    const tokenBody = await tokenResponse.json();
+    const token = tokenBody.data.token;
+
+    expect(typeof token).toBe('string');
+    expect(token.length).toBeGreaterThan(0);
+    expect(tokenBody.data.token_type).toBe('Bearer');
 
 
     const response = await request.get(`/api/v1/clientes/1`, {
@@ -29,15 +30,20 @@ test.describe('Consulta de clientes por identificador', () => {
 
   test('Consultar cliente inexistente', async ({ request }) => {
 
-    const clienteId = 1112;
-    //const nomeEsperado = 'Ana Paula Martins';
-    //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsb2phLXFhLWFwaSIsImF1ZCI6ImxvamEtcWEtcHJhdGljYSIsInN1YiI6InByYXRpY2EiLCJpYXQiOjE3OTU0NjEwMTgsImV4cCI6MTc5NTQ4OTgxOCwianRpIjoiMDRmZDA1MzctYTAxYy00NDg3LWEwNmMtZjg1OTNjODFlZDgwIn0.NFmJhIey_nZBeNW76HKq_Hvg6WxAG4MgAAcG0ctCW-0';
+    const clienteId = 1112;  
 
-    const token = process.env.API_TOKEN;
+    const tokenResponse = await request.post('/api/v1/token');
 
-    if (!token) {
-      throw new Error('Preencha API_TOKEN no arquivo .env.');
-    }
+    expect(tokenResponse.ok()).toBe(true);
+
+    const tokenBody = await tokenResponse.json();
+    const token = tokenBody.data.token;
+
+    expect(typeof token).toBe('string');
+    expect(token.length).toBeGreaterThan(0);
+    expect(tokenBody.data.token_type).toBe('Bearer');
+
+
 
     const response = await request.get(`/api/v1/clientes/${clienteId}`, {
       headers: {
@@ -89,11 +95,19 @@ test.describe('Consulta de clientes por identificador', () => {
 
   test('Consultar cliente com ID inválido', async ({ request }) => {
     const clienteId = 'abc';
-    const token = process.env.API_TOKEN;
+   
+     const tokenResponse = await request.post('/api/v1/token');
 
-    if (!token) {
-      throw new Error('Preencha API_TOKEN no arquivo .env.');
-    }
+    expect(tokenResponse.ok()).toBe(true);
+
+    const tokenBody = await tokenResponse.json();
+    const token = tokenBody.data.token;
+
+    expect(typeof token).toBe('string');
+    expect(token.length).toBeGreaterThan(0);
+    expect(tokenBody.data.token_type).toBe('Bearer');
+
+    
 
     const response = await request.get(`/api/v1/clientes/${clienteId}`, {
       headers: {
