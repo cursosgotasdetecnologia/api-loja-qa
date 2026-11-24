@@ -22,5 +22,8 @@
     "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
     "typescript-eslint": "^8.74.0"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.10"
   }
 }
